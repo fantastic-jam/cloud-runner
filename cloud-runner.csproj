@@ -62,8 +62,11 @@
     <Compile Include="scripts\Cloud.cs" />
     <Compile Include="scripts\CloudScreenManager.cs" />
     <Compile Include="scripts\CloudScreen.cs" />
+    <Compile Include="scripts\Coin.cs" />
+    <Compile Include="scripts\GameManager.cs" />
     <Compile Include="scripts\Parallax.cs" />
     <Compile Include="scripts\Player.cs" />
+    <Compile Include="scripts\UI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

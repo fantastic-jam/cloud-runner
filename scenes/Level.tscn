@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://prefabs/CloudScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ninja-frog.png" type="Texture" id=2]
@@ -8,6 +8,53 @@
 [ext_resource path="res://assets/mountains2.png" type="Texture" id=6]
 [ext_resource path="res://assets/mountains1.png" type="Texture" id=7]
 [ext_resource path="res://scripts/Parallax.cs" type="Script" id=8]
+[ext_resource path="res://assets/coin.png" type="Texture" id=9]
+[ext_resource path="res://assets/pixelated.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://scripts/UI.cs" type="Script" id=11]
+[ext_resource path="res://scripts/GameManager.cs" type="Script" id=12]
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 9 )
+region = Rect2( 120, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 9 )
+region = Rect2( 240, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 9 )
+region = Rect2( 360, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 480, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 600, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 9 )
+region = Rect2( 720, 0, 120, 120 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 9 )
+region = Rect2( 840, 0, 120, 120 )
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=18]
+font_data = ExtResource( 10 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -57,17 +104,43 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 9.11906, 5.15303 )
+extents = Vector2( 9, 12 )
 
 [node name="Level" type="Node2D"]
 __meta__ = {
 "_edit_horizontal_guides_": [ 12.7689 ]
 }
 
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource( 12 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 script = ExtResource( 5 )
+
+[node name="UI" type="Position2D" parent="Camera2D"]
+script = ExtResource( 11 )
+
+[node name="Coin" type="Position2D" parent="Camera2D/UI"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Camera2D/UI/Coin"]
+scale = Vector2( 0.15, 0.15 )
+frames = SubResource( 17 )
+frame = 2
+playing = true
+centered = false
+
+[node name="CoinLabel" type="Label" parent="Camera2D/UI/Coin"]
+margin_left = 19.3352
+margin_top = -0.205406
+margin_right = 59.3352
+margin_bottom = 17.7946
+custom_fonts/font = SubResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FarMountains" type="Node2D" parent="Camera2D"]
 z_index = -100
@@ -89,7 +162,7 @@ position = Vector2( 0, 182.249 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="Foreground" type="Node2D" parent="."]
+[node name="Clouds" type="Node2D" parent="."]
 z_index = 100
 script = ExtResource( 3 )
 _cloudScreenPrefab = ExtResource( 1 )
@@ -103,5 +176,5 @@ frames = SubResource( 7 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2( 0, 8 )
+position = Vector2( 0, 1 )
 shape = SubResource( 8 )

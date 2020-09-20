@@ -5,6 +5,8 @@ using Godot;
 public class CloudScreen : Node2D
 {
     private readonly RandomNumberGenerator _rand = new RandomNumberGenerator();
+
+    [Export] private PackedScene _coinPrefab;
     [Export] private PackedScene[] _cloudPrefabs;
 
     public Camera2D Camera { private get; set; }
@@ -29,6 +31,12 @@ public class CloudScreen : Node2D
             Clouds.AddLast(cloud);
             AddChild(cloud);
             cloud.GlobalPosition = cloudPosition;
+            if (_rand.RandiRange(0, 1) == 0)
+            {
+                var coin = (Coin) _coinPrefab.Instance();
+                coin.Position = new Vector2(-7.5f, -40f);
+                cloud.AddChild(coin);
+            }
             lastCloud = cloud;
         }
     }
