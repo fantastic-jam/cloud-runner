@@ -4,7 +4,7 @@ using Godot;
 
 public class CloudScreen : Node2D
 {
-    private const float Margin = 100f;
+    private const float Margin = 80f;
 
     private readonly RandomNumberGenerator _rand = new RandomNumberGenerator();
 
