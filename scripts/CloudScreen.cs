@@ -4,6 +4,8 @@ using Godot;
 
 public class CloudScreen : Node2D
 {
+    private const float Margin = 100f;
+
     private readonly RandomNumberGenerator _rand = new RandomNumberGenerator();
 
     [Export] private PackedScene _coinPrefab;
@@ -34,7 +36,7 @@ public class CloudScreen : Node2D
             if (_rand.RandiRange(0, 1) == 0)
             {
                 var coin = (Coin) _coinPrefab.Instance();
-                coin.Position = new Vector2(-7.5f, -40f);
+                coin.Position = new Vector2(-7.5f, -35f);
                 cloud.AddChild(coin);
             }
             lastCloud = cloud;
@@ -44,11 +46,11 @@ public class CloudScreen : Node2D
     private Vector2 GetCloudPosition(Cloud lastCloud)
     {
         if (lastCloud == null)
-            return new Vector2(440, 400);
+            return new Vector2(440, 350);
         return new Vector2
         (
             lastCloud.GlobalPosition.x + lastCloud.Size.x / 2f + _rand.RandfRange(180f, 360f),
-            _rand.RandfRange(Math.Max(lastCloud.Position.y - 80f, 80f), Math.Min(lastCloud.Position.y + 80f, Size.y - 80f))
+            _rand.RandfRange(Math.Max(lastCloud.Position.y - Margin, Margin), Math.Min(lastCloud.Position.y + Margin, Size.y - Margin))
         );
     }
 
