@@ -1,0 +1,84 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://prefabs/CloudScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/ninja-frog.png" type="Texture" id=2]
+[ext_resource path="res://scripts/CloudScreenManager.cs" type="Script" id=3]
+[ext_resource path="res://scripts/Player.cs" type="Script" id=4]
+[ext_resource path="res://scripts/Camera.cs" type="Script" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 928, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 960, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": false,
+"name": "fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"loop": false,
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 9.11906, 5.15303 )
+
+[node name="Level" type="Node2D"]
+__meta__ = {
+"_edit_horizontal_guides_": [ 12.7689 ]
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 5 )
+
+[node name="Foreground" type="Node2D" parent="."]
+z_index = 100
+script = ExtResource( 3 )
+_cloudScreenPrefab = ExtResource( 1 )
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 440, 350 )
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
+frames = SubResource( 7 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 0, 8 )
+shape = SubResource( 8 )
