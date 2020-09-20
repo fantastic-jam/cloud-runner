@@ -9,7 +9,7 @@ public class Player : KinematicBody2D
     private const float Gravity = 800f;
     private const float Speed = 250f;
     private const float AirSpeed = Speed * 0.05f;
-    private float MaxSpeed = 250f;
+    private float MaxSpeed = 275f;
     private const float JumpSpeed = 70f;
     private const float JumpMaxSpeed = 500f;
 
@@ -93,6 +93,6 @@ public class Player : KinematicBody2D
 
     public void SpeedUp()
     {
-        MaxSpeed += 10f;
+        MaxSpeed += 5f;
     }
 }

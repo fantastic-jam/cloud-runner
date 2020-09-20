@@ -3,7 +3,7 @@ using Godot;
 public class Camera : Camera2D
 {
     [Export] private bool _scrolling = true;
-    private float _speed = 190.0f;
+    private float _speed = 220.0f;
 
     public override void _Process(float delta)
     {
@@ -13,6 +13,6 @@ public class Camera : Camera2D
 
     public void SpeedUp()
     {
-        _speed += 10f;
+        _speed += 5f;
     }
 }

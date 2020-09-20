@@ -125,7 +125,7 @@ script = ExtResource( 11 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Camera2D/UI/Coin"]
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 17 )
-frame = 7
+frame = 6
 playing = true
 centered = false
 
