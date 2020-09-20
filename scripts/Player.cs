@@ -17,22 +17,25 @@ public class Player : KinematicBody2D
     private Vector2 _acceleration = Vector2.Zero;
     private bool _isJumping = false;
 
+    private GameManager _gameManager;
+    private Camera _camera;
     private AnimatedSprite _sprite;
 
     public override void _Ready()
     {
+        _gameManager = GetNode<GameManager>("/root/Level/GameManager");
+        _camera = GetNode<Camera>("/root/Level/Camera2D");
         _sprite = GetNode<AnimatedSprite>("AnimatedSprite");
     }
 
     public override void _Process(float delta)
     {
-        // region DEBUG
-        if (Input.IsActionJustPressed("ui_cancel"))
+        if (GlobalPosition.x + 50f < _camera.GlobalPosition.x || GlobalPosition.y < _camera.GlobalPosition.y)
         {
-            GetTree().ReloadCurrentScene();
+            _gameManager.OnPlayerDeath();
+            QueueFree();
             return;
         }
-        // endregion
 
         float speed = IsOnFloor() ? Speed : AirSpeed;
 

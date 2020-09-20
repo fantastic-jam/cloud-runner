@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://prefabs/CloudScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ninja-frog.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scripts/UI.cs" type="Script" id=11]
 [ext_resource path="res://scripts/GameManager.cs" type="Script" id=12]
 [ext_resource path="res://assets/sky_gradient.png" type="Texture" id=13]
+[ext_resource path="res://prefabs/GameOver.tscn" type="PackedScene" id=14]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 9 )
@@ -111,6 +112,7 @@ extents = Vector2( 9, 12 )
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource( 12 )
+_gameOver = ExtResource( 14 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -118,6 +120,7 @@ current = true
 script = ExtResource( 5 )
 
 [node name="UI" type="Position2D" parent="Camera2D"]
+z_index = 500
 script = ExtResource( 11 )
 
 [node name="Coin" type="Position2D" parent="Camera2D/UI"]
@@ -125,7 +128,7 @@ script = ExtResource( 11 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Camera2D/UI/Coin"]
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 17 )
-frame = 2
+frame = 1
 playing = true
 centered = false
 
