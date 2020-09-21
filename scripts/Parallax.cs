@@ -21,20 +21,14 @@ public class Parallax : Node2D
             _sprites.First.Value.QueueFree();
             _sprites.RemoveFirst();
         }
-        if (_sprites.Last.Value.Position.x < _camera.Position.x + _camera.GetViewport().Size.x)
-        {
-                var sprite = (Sprite) _sprites.Last.Value.Duplicate();
-                var position = new Vector2(sprite.Position.x + sprite.Texture.GetWidth(), sprite.Position.y);
-                AddChild(sprite);
-                sprite.Position = position;
-                _sprites.AddLast(sprite);
-                if (sprite.Position.x < _sprites.Last.Value.Position.x || sprite.Position.x < 0)
-                {
-                    GD.Print("?");
-                }
 
-                GD.Print($"camera: {_camera.Position}");
-                GD.Print($"add: {sprite.Position}");
+        if (_sprites.Last.Value.Position.x < _camera.Position.x + _camera.ScreenSize.x)
+        {
+            var sprite = (Sprite) _sprites.Last.Value.Duplicate();
+            var position = new Vector2(sprite.Position.x + sprite.Texture.GetWidth(), sprite.Position.y);
+            AddChild(sprite);
+            sprite.Position = position;
+            _sprites.AddLast(sprite);
         }
     }
 

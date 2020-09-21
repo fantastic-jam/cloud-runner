@@ -21,7 +21,7 @@ public class GameManager : Node
 
     public override void _Ready()
     {
-        _ui = (UI) GetParent().FindNode("UI");
+        _ui = GetNode<UI>("/root/Level/UI");
     }
 
     public override void _Input(InputEvent @event)
@@ -45,7 +45,7 @@ public class GameManager : Node
         {
             OneShot = true,
             Autostart = true,
-            WaitTime = 2
+            WaitTime = 1
         };
         timer.Connect("timeout", this, nameof(GameOver));
         AddChild(timer);

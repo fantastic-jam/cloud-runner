@@ -22,11 +22,10 @@ public class CloudScreenManager : Node2D
     private void AddCloudScreen()
     {
         Cloud lastCloud = _screens.Last?.Value?.Clouds?.Last?.Value;
-        float x = _screens.Count > 0 ? _screens.Last.Value.Position.x + _screens.Last.Value.Size.x : 0f;
+        float x = _screens.Count > 0 ? _screens.Last.Value.Position.x + _camera.ScreenSize.x : 0f;
         var screen = (CloudScreen) _cloudScreenPrefab.Instance();
         screen.Position = new Vector2(x, 0);
         screen.Camera = _camera;
-        screen.Size = GetViewport().Size;
         screen.OutOfScreen += OnScreenOutOfScreen;
         _screens.AddLast(screen);
         AddChild(screen);

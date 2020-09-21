@@ -11,9 +11,8 @@ public class CloudScreen : Node2D
     [Export] private PackedScene _coinPrefab;
     [Export] private PackedScene[] _cloudPrefabs;
 
-    public Camera2D Camera { private get; set; }
+    public Camera Camera { private get; set; }
     public LinkedList<Cloud> Clouds { get; } = new LinkedList<Cloud>();
-    public Vector2 Size { get; set; }
 
     public event Action<CloudScreen> OutOfScreen;
 
@@ -28,7 +27,7 @@ public class CloudScreen : Node2D
         {
             Vector2 cloudPosition = GetCloudPosition(lastCloud);
             var cloud = (Cloud) _cloudPrefabs[_rand.RandiRange(0, _cloudPrefabs.Length - 1)].Instance();
-            if (cloudPosition.x + cloud.Size.x / 2f > GlobalPosition.x + Size.x)
+            if (cloudPosition.x + cloud.Size.x / 2f > GlobalPosition.x + Camera.ScreenSize.x)
                 break;
             Clouds.AddLast(cloud);
             AddChild(cloud);
@@ -39,6 +38,7 @@ public class CloudScreen : Node2D
                 coin.Position = new Vector2(-7.5f, -35f);
                 cloud.AddChild(coin);
             }
+
             lastCloud = cloud;
         }
     }
@@ -50,13 +50,13 @@ public class CloudScreen : Node2D
         return new Vector2
         (
             lastCloud.GlobalPosition.x + lastCloud.Size.x / 2f + _rand.RandfRange(180f, 360f),
-            _rand.RandfRange(Math.Max(lastCloud.Position.y - Margin, Margin), Math.Min(lastCloud.Position.y + Margin, Size.y - Margin))
+            _rand.RandfRange(Math.Max(lastCloud.Position.y - Margin, Margin), Math.Min(lastCloud.Position.y + Margin, Camera.ScreenSize.y - Margin))
         );
     }
 
     public override void _Process(float delta)
     {
-        if (Position.x + Size.x < Camera.Position.x)
+        if (Position.x + Camera.ScreenSize.x < Camera.Position.x)
         {
             OutOfScreen?.Invoke(this);
             QueueFree();
